@@ -39,11 +39,6 @@ function renderRect(ctx, x, y, width, height, points, color) {
   ctx.fillRect(x, y, width, height);
 }
 
-
-// function generateColor() {
-//   return '#' + Math.floor(Math.random() * 16777215).toString(16)
-// }
-
 function generateBlueColor() {
   return 'hsl(240, 100%,' + Math.floor(Math.random() * 100) + '%)';
 }
@@ -64,17 +59,17 @@ window.renderStatistics = function (ctx, players, times) {
 
   var maxTime = getMaxElement(times);
 
-  var currentRectHeight;
-  var currentRectX;
-  var RectY;
+  var rectHeight;
+  var rectX;
+  var rectY;
   var TextX;
   var TextY;
 
   for (var i = 0; i < players.length; i++) {
 
-    currentRectHeight = (times[i] * BAR_HEIGHT) / maxTime;
-    currentRectX = CLOUD_X + PADDING_LEFT + (GAP_TO_RECT + BAR_WIDTH) * i;
-    RectY = CLOUD_Y + PADDING_TOP + BAR_HEIGHT - currentRectHeight;
+    rectHeight = (times[i] * BAR_HEIGHT) / maxTime;
+    rectX = CLOUD_X + PADDING_LEFT + (GAP_TO_RECT + BAR_WIDTH) * i;
+    rectY = CLOUD_Y + PADDING_TOP + BAR_HEIGHT - rectHeight;
     TextX = CLOUD_X + PADDING_LEFT + (GAP_TO_RECT + BAR_WIDTH) * i;
     TextY = CLOUD_Y + BAR_HEIGHT + PADDING_TOP + BAR_MARGIN_BOTTOM;
 
@@ -84,16 +79,10 @@ window.renderStatistics = function (ctx, players, times) {
     ctx.fillText(players[i], TextX, TextY);
 
     if (players[i] === 'Вы') {
-      renderRect(ctx, currentRectX, RectY, BAR_WIDTH, currentRectHeight, times[i], 'rgba(255, 0, 0, 1)');
+      renderRect(ctx, rectX, rectY, BAR_WIDTH, rectHeight, times[i], 'rgba(255, 0, 0, 1)');
     } else {
-      renderRect(ctx, currentRectX, RectY, BAR_WIDTH, currentRectHeight, times[i], generateBlueColor());
+      renderRect(ctx, rectX, rectY, BAR_WIDTH, rectHeight, times[i], generateBlueColor());
     }
 
   }
 };
-
-//   MAX_BAR      BAR[I]
-// ----------- = --------
-//  BAR_WIDTH       X
-
-//  X = (BAR_WIDTH * BAR[I]) / MAX_BAR
